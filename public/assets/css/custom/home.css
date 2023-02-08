@@ -1,0 +1,77 @@
+.card-highlight {
+    height: 200px;
+    border-radius: 16px;
+    background: red;
+    position: relative;
+    margin-bottom: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-highlight-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px 16px;
+    background-color: white;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-highlight-title {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-highlight-desc {
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.card-action {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-highlight:hover .card-action {
+    display: flex;
+}
+
+.card-btn-action {
+    background: white;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: auto;
+}
+
+.card-edit {
+    color: green;
+}
+
+.card-delete {
+    color: red;
+}
