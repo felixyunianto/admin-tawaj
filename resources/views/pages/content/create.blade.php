@@ -15,6 +15,7 @@
                     <form action="{{ route('content.store') }}" method="POST">
                         @csrf
                         <div class="col-md-12">
+                            <input type="hidden" name="category_id" value="{{app('request')->input('category')}}">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Indonesia</label>
                                 <input name="title_indo" class="form-control" type="text" value=""

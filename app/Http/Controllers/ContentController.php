@@ -55,10 +55,7 @@ class ContentController extends Controller
             'content_category_id' => $request->content_category_id
         ]);
 
-        return redirect()->route('content', ['category' => 1])->with('succes', "Berhasil menyimpan konten");
-        // dd(json_encode($indo),json_encode($arab, JSON_UNESCAPED_UNICODE),json_encode($latin), count($request->content_indo));
-
-        // dd(count($request->content_indo), $request->content_indo[0], $request->content_arab[0], $request->content_latin[0]);
+        return redirect()->route('content', ['category' => $request->category_id])->with('succes', "Berhasil menyimpan konten");
     }
 
 }

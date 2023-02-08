@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/home', [App\Http\Controllers\api\HomeMobileController::class, 'index']);
-Route::get('/highlight', [App\Http\Controllers\api\HighlightMobileController::class, 'index']);
+Route::get('/highlight', [App\Http\Controllers\api\HomeMobileController::class, 'highlight']);
+Route::get('/big-button', [App\Http\Controllers\api\HomeMobileController::class, 'bigButton']);
 Route::get('/content/{id}', [App\Http\Controllers\api\ContentMobileController::class, 'index']);
 Route::get('/button-pages/{id}', [App\Http\Controllers\api\ButtonPageMobileController::class, 'index']);

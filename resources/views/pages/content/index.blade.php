@@ -8,9 +8,9 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <h6>Tabel Konten</h6>
-                    <a href="{{ route('content.create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('content.create', ['category' => app('request')->input('category')]) }}" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
-                        Tambah Konten
+                        Tambah Konten 
                     </a>
 
                 </div>
@@ -28,7 +28,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($contents as $item)
+                                @foreach ($contents as $item)
                                     <tr>
                                         <td class="" style="padding-left: 24px;">
                                             <div class="d-flex px-1 pl-4 py-1">
@@ -58,14 +58,9 @@
                                                     Hapus</button>
                                             </form>
 
-
                                         </td>
                                     </tr>
-                                @empty
-                                    <td class="text-center text-sm text-secondary py-2" colspan="4">
-                                        Belum ada kategori konten yang ditambahkan
-                                    </td>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

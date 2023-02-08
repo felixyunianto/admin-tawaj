@@ -15,6 +15,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (Session::has('error'))
+                <div id="success-alert" class="alert alert-danger" role="alert">
+                    <span style="color : white">{{ session('error') }}</span>
+                </div>
+            @endif
             @yield('content')
         </div>
     </main>

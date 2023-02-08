@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Highlight;
+use App\Models\BigButton;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $highlights = Highlight::all();
+        $big_buttons = BigButton::all();
 
-        return view('home', compact('highlights'));
+        return view('home', compact('highlights', 'big_buttons'));
     }
 }

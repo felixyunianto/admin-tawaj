@@ -45,3 +45,8 @@ Route::delete('/button-page/destory/{id}', [App\Http\Controllers\ButtonPageContr
 //Highlight
 Route::get('/highlight/create', [App\Http\Controllers\HighlightController::class, 'create'])->name('highlight.create');
 Route::post('/highlight/store', [App\Http\Controllers\HighlightController::class, 'store'])->name('highlight.store');
+
+
+//Big Button
+Route::get('/big-button/create', [App\Http\Controllers\BigButtonController::class, 'create'])->name('big-button.create');
+Route::post('/big-button/store', [App\Http\Controllers\BigButtonController::class, 'store'])->name('big-button.store');
