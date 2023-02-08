@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Highlight;
+use App\Models\ButtonPage;
+use App\Models\Content;
 
 class HighlightController extends Controller
 {
     public function create(){
-        return view('pages.highlights.create');
+        $button_pages = ButtonPage::with('children.children')->whereNull('button_page_id')->get();
+        $contents = Content::all();
+
+        return view('pages.highlights.create', compact('contents', 'button_pages'));
     }
 
     public function store(Request $request){

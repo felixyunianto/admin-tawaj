@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('style')
+    <link rel="stylesheet" href="{{asset('assets/css/custom/highlight.css')}}">
+@endsection
 @section('title')
     Tambah Highlight
 @endsection
@@ -27,7 +30,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Judul Highlight</label>
+                                <label for="example-text-input" class="form-control-label">Deskripsi Highlight</label>
                                 <textarea class="form-control" name="description" id="" cols="30" rows="10"
                                     placeholder="Isikan deskripsi highlight"></textarea>
 
@@ -52,6 +55,7 @@
                                     <label for="example-text-input" class="form-control-label">Link</label>
                                     <div id="link-body">
                                         <input type="text" class="form-control" name="link" placeholder="isikan link">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -71,4 +75,62 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    const linkType = document.querySelector('#link_type');
+    const linkBody = document.querySelector('#link-body')
+    var valueLinkType = linkType.value;
+    linkType.addEventListener('change', function(){
+        valueLinkType = linkType.value
+        changeLinkBody();
+    })
+
+    function changeLinkBody() {
+        let html = '';
+        console.log();
+        if(valueLinkType === 'button_page'){
+            html = `
+            <select name="link" class="form-control">
+                <option value="">Pilih link button page</option>
+                @foreach ($button_pages as $item)
+                    <option value="{{$item->id}}">{{$item->title}}</option>
+                    @if (count($item->children) > 0)
+                        <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;Child">
+                    @endif
+                        @foreach ($item->children as $child)
+                            <option value="{{$child->id}}">{{$child->title}}</option>
+                            @if (count($child->children) > 0)
+                                <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sub Child">
+                            @endif
+                                @foreach ($child->children as $subchild)
+                                    <option value="{{$subchild->id}}">&nbsp;&nbsp;&nbsp;&nbsp;{{$subchild->title}}</option>
+                                @endforeach
+                            @if (count($child->children) > 0)
+                                </optgroup>
+                            @endif
+                        @endforeach
+                    @if (count($button_pages) > 0)
+                        </optgroup>
+                    @endif
+                    
+                @endforeach
+            </select>
+            `
+        }else if(valueLinkType === 'content'){
+            html = `
+            <select name="link" class="form-control">
+                <option value="">Pilih link content</option>
+                @foreach ($contents as $item)
+                    <option value="{{$item->id}}">{{$item->title_arab}}</option>
+                @endforeach
+            </select>
+            `
+        }else{
+            html = `<input type="text" class="form-control" name="link" placeholder="isikan link">`
+        }
+
+        linkBody.innerHTML = html
+    }
+</script>
 @endsection
