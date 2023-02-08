@@ -11,12 +11,26 @@ class ContentMobileController extends Controller
     public function index($id) {
         $content = Content::findOrFail($id);
 
+        $indo = json_decode($content->content_indo);
+        $arab = json_decode($content->content_arab);
+        $latin = json_decode($content->content_latin);
+
+        $contentResults = [
+
+        ];
+
+        for($i = 0; $i < count($indo); $i++){
+            $contentResults[] = [
+                'indo' => $indo[$i],
+                'arab' => $arab[$i],
+                'latin' => $latin[$i],
+            ];
+        }
+
         $data = [
             'title_indo' => $content->title_indo,
             'title_arab' => $content->title_arab,
-            'content_indo' => json_decode($content->content_indo),
-            'content_arab' => json_decode($content->content_arab),
-            'content_latin' => json_decode($content->content_latin),
+            'content' => $contentResults,
         ];
 
         return response()->json([
