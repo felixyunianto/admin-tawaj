@@ -41,7 +41,53 @@ class HighlightController extends Controller
     }
 
     public function edit($id){
-        $highlights = Highlight::findOrFail($id);        
-        return view('pages.highlights.create', compact('highlights'));
+        $highlight = Highlight::findOrFail($id);
+
+        $button_pages = ButtonPage::with('children.children')->whereNull('button_page_id')->get();
+        $contents = Content::all();
+
+        return view('pages.highlights.edit', compact('highlight', 'button_pages', 'contents'));
+    }
+
+    public function update(Request $request, $id){
+        $highlight = Highlight::findOrFail($id);
+        $image = $highlight->images;
+        $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[5];
+        $imageName = "";
+
+        if($request->image){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads/highlights'), $imageName);
+
+            if(\File::exists($imagePath)){
+                \File::delete($imagePath);
+            }
+        }
+
+        $highlight->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'link_type' => $request->link_type,
+            'link' => $request->link,
+            'images' => $request->image ? url("/uploads/highlights/".$imageName) : $highlight->images
+        ]);
+
+        return redirect()->route('home')->with('success', 'Data berhasil diubah');
+    }
+
+    public function destroy($id) {
+        $highlight = Highlight::findOrFail($id);
+        $image = $highlight->images;
+        if($image){
+            $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[5];
+
+            if(\File::exists($imagePath)){
+                \File::delete($imagePath);
+            }
+        }
+
+        $highlight->delete();
+
+        return redirect()->route('home')->with('success', 'Data berhasil dihapus');
     }
 }

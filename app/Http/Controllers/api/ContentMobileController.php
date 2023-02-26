@@ -15,9 +15,7 @@ class ContentMobileController extends Controller
         $arab = json_decode($content->content_arab);
         $latin = json_decode($content->content_latin);
 
-        $contentResults = [
-
-        ];
+        $contentResults = [];
 
         for($i = 0; $i < count($indo); $i++){
             $contentResults[] = [

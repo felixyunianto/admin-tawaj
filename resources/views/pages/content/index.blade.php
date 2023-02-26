@@ -8,9 +8,10 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <h6>Tabel Konten</h6>
-                    <a href="{{ route('content.create', ['category' => app('request')->input('category')]) }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('content.create', ['category' => app('request')->input('category')]) }}"
+                        class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
-                        Tambah Konten 
+                        Tambah Konten
                     </a>
 
                 </div>
@@ -45,17 +46,23 @@
                                         <td class=" text-uppercase text-secondary text-xs font-weight-bolder opacity-7 d-flex align-items-center"
                                             style="padding-left: 24px; ">
 
-                                            <form action="{{ route('content-category.destroy', $item->id) }}" method="post"
-                                                class="d-flex align-items-center gap-2 pt-2">
+                                            <div class="d-flex align-items-center gap-2 pt-2">
+                                                <a class="btn btn-sm btn-warning mt-2"
+                                                href="{{ route('content.edit', ['category' => app('request')->input('category'), 'id' => $item->id]) }}">
+                                                <i class="fa fa-edit"></i>
+                                                Edit</a>
+
+                                            <button type="button" onclick="return onDelete({{$item->id}})" class="btn btn-sm btn-danger  mt-2">
+                                                <i class="fa fa-trash"></i>
+                                                Hapus</button>
+                                            </div>
+
+                                            <form action="{{ route('content.destroy', $item->id) }}" method="post" id="form-delete-{{$item->id}}">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <a class="btn btn-sm btn-warning mt-2"
-                                                    href="{{ route('content-category.edit', $item->id) }}">
-                                                    <i class="fa fa-edit"></i>
-                                                    Edit</a>
-                                                <button type="submit" class="btn btn-sm btn-danger  mt-2">
-                                                    <i class="fa fa-trash"></i>
-                                                    Hapus</button>
+                                                <input type="hidden" name="category_id"
+                                                    value="{{ app('request')->input('category') }}">
+
                                             </form>
 
                                         </td>
@@ -74,5 +81,12 @@
         $(document).ready(function() {
             $('#content-table').DataTable();
         });
+
+        function onDelete (id){
+            const confirmDelete = confirm("Apakah anda yakin?");
+            if(confirmDelete){
+                $(`#form-delete-${id}`).submit();
+            }
+        }
     </script>
 @endsection

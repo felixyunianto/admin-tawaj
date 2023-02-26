@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Highlight;
 use App\Models\BigButton;
+use App\Models\BigTab;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,9 @@ class HomeController extends Controller
     {
         $highlights = Highlight::all();
         $big_buttons = BigButton::all();
+        $big_tabs = BigTab::all();
+        
 
-        return view('home', compact('highlights', 'big_buttons'));
+        return view('home', compact('highlights', 'big_buttons', 'big_tabs'));
     }
 }

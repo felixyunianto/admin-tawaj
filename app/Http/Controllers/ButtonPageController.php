@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ButtonPage;
+use App\Models\Content;
 
 class ButtonPageController extends Controller
 {
@@ -18,9 +19,10 @@ class ButtonPageController extends Controller
     }
 
     public function create() {
-        $button_pages = ButtonPage::all();
+        $contents = Content::all();
+        $button_pages = Content::all();
 
-        return view('pages.button_page.create', compact('button_pages'));
+        return view('pages.button_page.create', compact('contents', 'button_pages'));
     }
 
     public function store(Request $request){
@@ -49,9 +51,12 @@ class ButtonPageController extends Controller
     }
 
     public function edit($id){
-        $button_pages = ButtonPage::findOrFail($id);
+        $button_page = ButtonPage::findOrFail($id);
 
-        return view('pages.button_page.edit', compact('button_pages'));
+        $contents = Content::all();
+        $button_pages = ButtonPage::all();
+
+        return view('pages.button_page.edit', compact('button_page', 'button_pages', 'contents'));
     }
 
     public function update(Request $request, $id){

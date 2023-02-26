@@ -38,7 +38,7 @@
                                 <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control"
                                     placeholder="Isikan deskripsi"></textarea>
 
-                                @error('title2')
+                                @error('deskripsi')
                                     <span class="text-danger text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -97,8 +97,8 @@
                 html = `
                 <select name="link" id="link" class="form-control">
                                                 <option value="">Pilih link</option>
-                                                @foreach ($button_pages as $item)
-                                                    <option value="{{$item->id}}">{{$item->title}}</option>
+                                                @foreach ($contents as $item)
+                                                    <option value="{{$item->id}}">{{$item->title_arab}} <span>({{$item->title_indo}})</span></option>
                                                 @endforeach
                                             </select>`
             }else{

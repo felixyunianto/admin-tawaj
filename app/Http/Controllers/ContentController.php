@@ -29,6 +29,7 @@ class ContentController extends Controller
         $rules = [
             'title_indo' => 'required',
             'title_arab' => 'required',
+            'content_category_id' => 'required'
         ];
         $message = [
             'required' => 'form ini harus diisi'
@@ -55,7 +56,63 @@ class ContentController extends Controller
             'content_category_id' => $request->content_category_id
         ]);
 
-        return redirect()->route('content', ['category' => $request->category_id])->with('succes', "Berhasil menyimpan konten");
+        return redirect()->route('content', ['category' => $request->category_id])->with('success', "Berhasil menyimpan konten");
+    }
+
+    public function edit($id){
+        $content = Content::findOrFail($id);
+        $categories = ContentCategory::all();
+
+        $indo = json_decode($content->content_indo);
+        $arab = json_decode($content->content_arab);
+        $latin = json_decode($content->content_latin);
+
+        $contentResults = [];
+
+        for($i = 0; $i < count($indo); $i++){
+            $contentResults[] = [
+                'indo' => $indo[$i],
+                'arab' => $arab[$i],
+                'latin' => $latin[$i],
+            ];
+        }
+        
+        return view('pages.content.edit', compact('content', 'categories', 'contentResults'));
+    }
+
+    public function update(Request $request, $id){
+        
+        $content = Content::findOrfail($id);
+        $category_id = $request->category;
+
+        $indo = [];
+        $arab = [];
+        $latin = [];
+        for($i = 0; $i < count($request->content_indo); $i++){
+            $number = $i+1;
+            $indo[] = $request->content_indo[$i];
+            $arab[] = $request->content_arab[$i];
+            $latin[] = $request->content_latin[$i];
+        }
+
+        $content->update([
+            'title_indo' => $request->title_indo,
+            'title_arab' => $request->title_arab,
+            'content_indo' => json_encode($indo),
+            'content_arab' => json_encode($arab, JSON_UNESCAPED_UNICODE),
+            'content_latin' => json_encode($latin),
+            'content_category_id' => $request->content_category_id
+        ]);
+
+        return redirect()->route('content', ['category' => $request->category_id])->with('success', "Berhasil mengubah konten");
+    }
+
+    public function destroy(Request $request, $id){
+        
+        $content = Content::findOrFail($id);
+        $content->delete();
+
+        return redirect()->route('content', ['category' => $request->category_id])->with('success', "Berhasil menghapus konten");
     }
 
 }

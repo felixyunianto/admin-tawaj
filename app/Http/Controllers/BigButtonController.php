@@ -58,4 +58,56 @@ class BigButtonController extends Controller
 
         return redirect()->route('home')->with('success', 'Data berhasil disimpan');
     }
+
+    public function edit($id){
+        $big_button = BigButton::findOrfail($id);
+
+        $button_pages = ButtonPage::with('children.children')->whereNull('button_page_id')->get();
+        $contents = Content::all();
+
+        return view('pages.big_button.edit', compact('big_button', 'contents', 'button_pages'));
+    }
+
+    public function update(Request $request, $id){
+        $big_button = BigButton::findOrfail($id);
+
+        $image = $big_button->image;
+        $imagePath = public_path('/uploads/big-buttons/') .explode("/", $image)[5];
+        $imageName = "";
+
+        if($request->image){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads/big-buttons'), $imageName);
+
+            if(\File::exists($imagePath)){
+                \File::delete($imagePath);
+            }
+        }
+
+        $big_button->update([
+            'title' => $request->title,
+            'link_type' => $request->link_type,
+            'link' => $request->link,
+            'image' => $request->image ? url("/uploads/big-buttons/".$imageName) : $big_button->image,
+            'is_showed' => $request->is_showed == 'on' ? 1 : 0
+        ]);
+
+        return redirect()->route('home')->with('success', 'Data berhasil diubah');
+    }
+
+    public function destroy($id){
+        $big_button = BigButton::findOrfail($id);
+        $image = $big_button->image;
+        if($image){
+            $imagePath = public_path('/uploads/big-buttons/') .explode("/", $image)[5];
+
+            if(\File::exists($imagePath)){
+                \File::delete($imagePath);
+            }
+        }
+
+        $big_button->delete();
+
+        return redirect()->route('home')->with('success', 'Data berhasil dihapus');
+    }
 }

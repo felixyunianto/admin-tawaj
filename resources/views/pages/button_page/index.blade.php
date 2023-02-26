@@ -57,13 +57,20 @@
                                         </td>
                                         <td class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
                                             style="padding-left: 24px;">
-                                            <form id='form-delete' action="{{ route('button_page.destroy', $item->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-sm btn-danger mt-2">
+                                            <div class="d-flex gap-2">
+                                                <a href="{{route('button_page.edit', $item->id)}}" class="btn btn-sm btn-warning mt-2">
+                                                    <i class="fa fa-edit"></i>Edit</a>
+                                                <button type="button" class="btn btn-sm btn-danger mt-2"
+                                                    onclick="return onDelete({{ $item->id }})">
                                                     <i class="fa fa-trash"></i>
                                                     Hapus</button>
+                                            </div>
+
+                                            <form id='form-delete-{{ $item->id }}'
+                                                action="{{ route('button_page.destroy', $item->id) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="DELETE">
+
                                             </form>
                                         </td>
                                     </tr>
@@ -87,5 +94,12 @@
         $(document).ready(function() {
             $('#content-table').DataTable();
         });
+
+        function onDelete(id) {
+            const confirmDelete = confirm("Apakah anda yakin?");
+            if (confirmDelete) {
+                $(`#form-delete-${id}`).submit();
+            }
+        }
     </script>
 @endsection
