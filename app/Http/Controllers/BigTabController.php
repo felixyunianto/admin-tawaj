@@ -50,7 +50,7 @@ class BigTabController extends Controller
             'link_type' => $request->link_type,
             'link' => $request->link,
             'type_button' => $request->type_button,
-            'image' => url("/uploads/big-tabs/".$imageName)
+            'image' => $request->image ? url("/uploads/big-tabs/".$imageName) : null
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil disimpan');
