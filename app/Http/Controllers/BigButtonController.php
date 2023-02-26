@@ -27,7 +27,7 @@ class BigButtonController extends Controller
 
         $buttonButtonActive = BigButton::where('is_showed', true)->count();
 
-        if($request->is_showed === "on"){
+        if($request->is_showed == "on"){
             if($buttonButtonActive < 7){
                 $imageName = time().'.'.$request->image->extension();
                 $request->image->move(public_path('uploads/big-buttons'), $imageName);
