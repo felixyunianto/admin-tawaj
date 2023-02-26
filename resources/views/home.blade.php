@@ -109,7 +109,7 @@
                     <div class="card-body">
                         <div class="owl-carousel" id="big-tab-owl-carousel">
                             @foreach ($big_tabs as $big_tab)
-                                @if ($big_tab->type_button === 1)
+                                @if ($big_tab->type_button == 1)
                                     <div class="big-tab-container type-1">
                                         <form action="{{ route('big-tab.destroy', $big_tab->id) }}" method="POST"
                                             id="form-big-tab-{{ $big_tab->id }}" class="d-none">
@@ -141,7 +141,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                @elseif($big_tab->type_button === 2)
+                                @elseif($big_tab->type_button == 2)
                                     <div class="big-tab-container type-2">
                                         <div class="big-tab-text">
                                             <div class="big-tab-title">
