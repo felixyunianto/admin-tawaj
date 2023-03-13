@@ -67,8 +67,9 @@ class ButtonPageController extends Controller
             'title' => $request->title,
             'title2' => $request->title2,
             'deskripsi' => $request->deskripsi,
-            'link' => $request->button_page_id ? $request->button_page_id : $request->link,
-            'button_page_id' => $request->button_page_id ? $request->button_page_id : null
+            'link' => $request->link,
+            'button_page_id' => $request->button_page_id ? $request->button_page_id : null,
+            'link_type' => $request->link_type,
         ]);
 
         return redirect()->route('button_page.index')->with('success', 'Data berhasil diubah');
@@ -76,6 +77,12 @@ class ButtonPageController extends Controller
 
     public function destroy($id){
         $button_pages = ButtonPage::findOrFail($id);
+        
+        $haveAChild = ButtonPage::where('button_page_id', $id)->get();
+        if(count($haveAChild) > 0){
+            return redirect()->route('button_page.index')->with('error', 'Data tidak bisa dihapus karena sedang digunakan');    
+        }
+
         $button_pages->delete();
 
         return redirect()->route('button_page.index')->with('success', 'Data berhasil dihapus');

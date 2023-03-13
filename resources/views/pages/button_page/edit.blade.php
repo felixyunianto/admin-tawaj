@@ -49,7 +49,9 @@
                                 <select name="button_page_id" id="button_page_id" class="form-control">
                                     <option value="">Pilih parent link</option>
                                     @foreach ($button_pages as $item)
-                                        <option value="{{ $item->id }} @if($item->id == $button_page->button_page_id) selected @endif">{{ $item->title }}</option>
+                                        <option
+                                            value="{{ $item->id }}" @if ($item->id == $button_page->button_page_id) selected @endif>
+                                            {{ $item->title }}</option>
                                     @endforeach
                                 </select>
 
@@ -91,48 +93,33 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            const linkType = document.querySelector('#link_type');
-            const linkBody = document.querySelector('#link-body');
+        const linkType = document.querySelector('#link_type');
+        const linkBody = document.querySelector('#link-body')
+        var valueLinkType = linkType.value;
+        changeLinkBody();
 
+        linkType.addEventListener('change', function() {
+            valueLinkType = linkType.value
+            changeLinkBody();
+        })
 
+        function changeLinkBody() {
             let html = '';
-            console.log(linkType.value)
-            console.log(linkType.value === 'content')
-            if (linkType.value === 'content') {
+            if (valueLinkType === 'content') {
                 html = `
-                <select name="link" id="link" class="form-control">
-                    <option value="">Pilih link</option>
-                    @foreach ($contents as $item)
-                        <option value="{{ $item->id }}" @if ($item->id == $button_page->link) selected @endif>{{ $item->title_arab }} <span>({{ $item->title_indo }})</span></option>
-                    @endforeach
-                </select>`
+            <select name="link" class="form-control">
+                <option value="">Pilih link content</option>
+                @foreach ($contents as $content)
+                    <option value="{{ $content->id }}" @if ($content->id == $button_page->link && $button_page->link_type == 'content') selected @endif>{{ $content->title_arab }}</option>
+                @endforeach
+            </select>
+            `
             } else {
-                html = `<input type="text" class="form-control" name="link" placeholder="isikan link">`
+                html =
+                    `<input type="text" class="form-control" name="link" placeholder="isikan link" value="{{ $button_page->link }}">`
             }
 
             linkBody.innerHTML = html
-
-            linkType.addEventListener('change', function() {
-                let valueLinkType = linkType.value;
-
-                let htmlChange = '';
-
-                if (valueLinkType === 'content') {
-                    htmlChange = `
-                <select name="link" id="link" class="form-control">
-                    <option value="">Pilih link</option>
-                    @foreach ($contents as $item)
-                        <option value="{{ $item->id }}" @if ($item->id == $button_page->link) selected @endif>{{ $item->title_arab }} <span>({{ $item->title_indo }})</span></option>
-                    @endforeach
-                </select>`
-                } else {
-                    htmlChange =
-                        `<input type="text" class="form-control" name="link" placeholder="isikan link">`
-                }
-
-                linkBody.innerHTML = htmlChange
-            })
-        })
+        }
     </script>
 @endsection

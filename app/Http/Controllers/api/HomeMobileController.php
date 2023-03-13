@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Sort;
 use App\Models\Highlight;
 use App\Models\BigButton;
+use App\Models\BigTab;
 
 class HomeMobileController extends Controller
 {
@@ -33,6 +34,22 @@ class HomeMobileController extends Controller
 
         return response()->json([
             'data' => $big_buttons
+        ]);
+    }
+
+    public function allBigButton() {
+        $big_buttons = BigButton::orderBy("created_at", "DESC")->get();
+
+        return response()->json([
+            'data' => $big_buttons
+        ]);
+    }
+
+    public function bigTab() {
+        $big_tabs = BigTab::orderBy('created_at', 'DESC')->take(5)->get();
+
+        return response()->json([
+            'data' => $big_tabs
         ]);
     }
 }
