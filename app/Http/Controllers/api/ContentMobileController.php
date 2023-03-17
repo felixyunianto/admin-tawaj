@@ -19,9 +19,9 @@ class ContentMobileController extends Controller
 
         for($i = 0; $i < count($indo); $i++){
             $contentResults[] = [
-                'indo' => $indo[$i],
-                'arab' => $arab[$i],
-                'latin' => $latin[$i],
+                'indo' => $indo[$i] == "null" ? null : $indo[$i],
+                'arab' => $arab[$i] == "null" ? null : $arab[$i],
+                'latin' => $latin[$i] == "null" ? null : $latin[$i],
             ];
         }
 

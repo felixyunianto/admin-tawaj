@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post("/login", [App\Http\Controllers\api\AuthMobileController::class, 'login']);
+Route::post("/register", [App\Http\Controllers\api\AuthMobileController::class, 'register']);
 
 Route::get('/home', [App\Http\Controllers\api\HomeMobileController::class, 'index']);
 Route::get('/highlight', [App\Http\Controllers\api\HomeMobileController::class, 'highlight']);
