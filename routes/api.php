@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post("/login", [App\Http\Controllers\api\AuthMobileController::class, 'login']);
+Route::post('/save-token/{id}', [App\Http\Controllers\api\AuthMobileController::class, 'saveToken']);
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post("/logout", [App\Http\Controllers\api\AuthMobileController::class, 'logout']);
 });
@@ -37,3 +38,5 @@ Route::get('/button-pages/{id}', [App\Http\Controllers\api\ButtonPageMobileContr
 
 Route::get("/profile/{id}", [App\Http\Controllers\api\ProfileController::class, 'index']);
 Route::post("/edit-profile/{id}", [App\Http\Controllers\api\ProfileController::class, 'editProfile']);
+
+Route::get("/notifications", [App\Http\Controllers\api\NotificationMobileController::class, 'index']);

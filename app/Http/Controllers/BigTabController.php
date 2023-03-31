@@ -50,7 +50,7 @@ class BigTabController extends Controller
             'link_type' => $request->link_type,
             'link' => $request->link,
             'type_button' => $request->type_button,
-            'image' => $request->image ? url("/uploads/big-tabs/".$imageName) : null
+            'image' => $request->image ? "/uploads/big-tabs/".$imageName : null
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil disimpan');
@@ -73,7 +73,7 @@ class BigTabController extends Controller
         if($request->image){
             $imagePath = public_path('/uploads/big-tabs/');
             if($image){
-                $imagePath = public_path('/uploads/big-tabs/') .explode("/", $image)[5];
+                $imagePath = public_path('/uploads/big-tabs/') .explode("/", $image)[3];
             }
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/big-tabs'), $imageName);
@@ -89,7 +89,7 @@ class BigTabController extends Controller
             'link_type' => $request->link_type,
             'link' => $request->link,
             'type_button' => $request->type_button,
-            'image' => $request->image ? url("/uploads/big-tabs/".$imageName) : $big_tab->images
+            'image' => $request->image ? "/uploads/big-tabs/".$imageName : $big_tab->images
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil diubah');
@@ -101,7 +101,7 @@ class BigTabController extends Controller
         $image = $big_tab->image;
 
         if($image){
-            $imagePath = public_path('/uploads/big-tabs/') .explode("/", $image)[5];
+            $imagePath =public_path('/uploads/big-tabs/') .explode("/", $image)[3];
 
             if(\File::exists($imagePath)){
                 \File::delete($imagePath);

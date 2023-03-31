@@ -34,7 +34,7 @@ class HighlightController extends Controller
             'description' => $request->description,
             'link_type' => $request->link_type,
             'link' => $request->link,
-            'images' => url("/uploads/highlights/".$imageName)
+            'images' => "/uploads/highlights/".$imageName
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil disimpan');
@@ -52,7 +52,7 @@ class HighlightController extends Controller
     public function update(Request $request, $id){
         $highlight = Highlight::findOrFail($id);
         $image = $highlight->images;
-        $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[5];
+        $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[3];
         $imageName = "";
 
         if($request->image){
@@ -69,7 +69,7 @@ class HighlightController extends Controller
             'description' => $request->description,
             'link_type' => $request->link_type,
             'link' => $request->link,
-            'images' => $request->image ? url("/uploads/highlights/".$imageName) : $highlight->images
+            'images' => $request->image ? "/uploads/highlights/".$imageName : $highlight->images
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil diubah');
@@ -79,7 +79,7 @@ class HighlightController extends Controller
         $highlight = Highlight::findOrFail($id);
         $image = $highlight->images;
         if($image){
-            $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[5];
+            $imagePath = public_path('/uploads/highlights/') .explode("/", $image)[3];
 
             if(\File::exists($imagePath)){
                 \File::delete($imagePath);

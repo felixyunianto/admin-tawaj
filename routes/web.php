@@ -68,3 +68,13 @@ Route::post('/big-tab/store', [App\Http\Controllers\BigTabController::class, 'st
 Route::get('/big-tab/{id}/edit', [App\Http\Controllers\BigTabController::class, 'edit'])->name('big-tab.edit');
 Route::post('/big-tab/update/{id}', [App\Http\Controllers\BigTabController::class, 'update'])->name('big-tab.update');
 Route::delete('/big-tab/delete/{id}', [App\Http\Controllers\BigTabController::class, 'destroy'])->name('big-tab.destroy');
+
+
+//Notifikasi
+Route::get('/notifikasi', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifikasi/tambah', [App\Http\Controllers\NotificationController::class, 'create'])->name('notifications.create');
+Route::post('/notifikasi/tambah/store', [App\Http\Controllers\NotificationController::class, 'store'])->name('notifications.store');
+Route::get('/notifikasi/{id}/edit', [App\Http\Controllers\NotificationController::class, 'edit'])->name('notifications.edit');
+Route::post('/notifikasi/update/{id}', [App\Http\Controllers\NotificationController::class, 'update'])->name('notifications.update');
+Route::delete('/notifikasi/delete/{id}', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
+Route::get('/notifikasi/send-notif/{id}', [App\Http\Controllers\NotificationController::class, 'sendNotification'])->name('notifications.sendNotif');

@@ -89,8 +89,26 @@ class AuthMobileController extends Controller
         ], 500);
     }
 
+    public function saveToken(Request $request, $id){
+        $user = User::findOrFail($id);
+
+        $user->update([
+            "device_token" => $request->token
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Device token berhasil disimpan'
+        ], 200);
+    }
+
     public function logout(){
         if(Auth::check()){
+            $user = User::findOrFail(Auth::user()->id);
+            $user->update([
+                "device_token" => null
+            ]);
+
             Auth::user()->token()->revoke();
             return response()->json(['success' =>'logout_success'],200); 
         }else{

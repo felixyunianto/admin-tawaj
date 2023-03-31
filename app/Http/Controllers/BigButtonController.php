@@ -36,7 +36,7 @@ class BigButtonController extends Controller
                     'title' => $request->title,
                     'link_type' => $request->link_type,
                     'link' => $request->link,
-                    'image' => url("/uploads/big-buttons/".$imageName),
+                    'image' => "/uploads/big-buttons/".$imageName,
                     'is_showed' => 1
                 ]);
         
@@ -53,7 +53,7 @@ class BigButtonController extends Controller
             'title' => $request->title,
             'link_type' => $request->link_type,
             'link' => $request->link,
-            'image' => url("/uploads/big-buttons/".$imageName),
+            'image' => "/uploads/big-buttons/".$imageName,
         ]);
 
         return redirect()->route('home')->with('success', 'Data berhasil disimpan');
@@ -72,7 +72,7 @@ class BigButtonController extends Controller
         $big_button = BigButton::findOrfail($id);
 
         $image = $big_button->image;
-        $imagePath = public_path('/uploads/big-buttons/') .explode("/", $image)[5];
+        $imagePath = public_path('/uploads/big-buttons/') .explode("/", $image)[3];
         $imageName = "";
 
         if($request->image){
@@ -88,7 +88,7 @@ class BigButtonController extends Controller
             'title' => $request->title,
             'link_type' => $request->link_type,
             'link' => $request->link,
-            'image' => $request->image ? url("/uploads/big-buttons/".$imageName) : $big_button->image,
+            'image' => $request->image ? "/uploads/big-buttons/".$imageName : $big_button->image,
             'is_showed' => $request->is_showed == 'on' ? 1 : 0
         ]);
 

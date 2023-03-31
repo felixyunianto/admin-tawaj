@@ -25,6 +25,7 @@ class User extends Authenticatable
         'whatsapp',
         'nickname',
         'role',
+        'device_token'
     ];
 
     /**
