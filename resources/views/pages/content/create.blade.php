@@ -60,7 +60,7 @@
                         <div class="" id="container-add-button">
                             <button class="btn btn-success form-control" type="button" id="button-add">
                                 <i class="fa fa-plus"></i>
-                                Tambah Ayat</button>
+                                Tambah</button>
                         </div>
                         <div class="col-md-12">
                             <button class="form-control btn btn-primary" type="submit">Simpan</button>

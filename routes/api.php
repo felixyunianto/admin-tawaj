@@ -40,3 +40,5 @@ Route::get("/profile/{id}", [App\Http\Controllers\api\ProfileController::class, 
 Route::post("/edit-profile/{id}", [App\Http\Controllers\api\ProfileController::class, 'editProfile']);
 
 Route::get("/notifications", [App\Http\Controllers\api\NotificationMobileController::class, 'index']);
+
+Route::post('/search',[App\Http\Controllers\api\SearchController::class, 'index']);

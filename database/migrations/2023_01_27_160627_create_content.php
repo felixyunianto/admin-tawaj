@@ -16,7 +16,7 @@ class CreateContent extends Migration
         Schema::create('content', function (Blueprint $table) {
             $table->id();
             $table->string('title_indo');
-            $table->string('title_arab');
+            $table->string('title_arab')->nullable();
             $table->text('content_indo');
             $table->text('content_arab');
             $table->text('content_latin');

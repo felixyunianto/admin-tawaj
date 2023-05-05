@@ -28,7 +28,6 @@ class ContentController extends Controller
     public function store(Request $request) {
         $rules = [
             'title_indo' => 'required',
-            'title_arab' => 'required',
             'content_category_id' => 'required'
         ];
         $message = [
@@ -97,7 +96,7 @@ class ContentController extends Controller
 
         $content->update([
             'title_indo' => $request->title_indo,
-            'title_arab' => $request->title_arab,
+            'title_arab' => $request->title_arab || null,
             'content_indo' => json_encode($indo),
             'content_arab' => json_encode($arab, JSON_UNESCAPED_UNICODE),
             'content_latin' => json_encode($latin),
