@@ -22,7 +22,12 @@ class AuthMobileController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $credentials = $request->only('email', 'password');
+        $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? "email" : "username";
+
+        $credentials = array(
+            $fieldType => $request->email,
+            'password' => $request->password
+        );
 
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
@@ -45,7 +50,7 @@ class AuthMobileController extends Controller
 
         return response()->json([
             'success' => false,
-            'message' => 'Email atau Password Anda salah'
+            'message' => 'Email/Username atau Password Anda salah'
         ], 401);
     }
 

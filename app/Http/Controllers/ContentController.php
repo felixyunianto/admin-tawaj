@@ -28,18 +28,23 @@ class ContentController extends Controller
     public function store(Request $request) {
         $rules = [
             'title_indo' => 'required',
-            'content_category_id' => 'required'
+            'content_category_id' => 'required',
+
         ];
         $message = [
-            'required' => 'form ini harus diisi'
+            'required' => 'form ini harus diisi',
         ];
 
         $this->validate($request, $rules, $message);
 
+        if($request->content_arab === null){
+            return redirect()->route('content.create', ['category' => $request->category_id])->with('error', "Tambahkan ayat minimal 1");
+        }
+
         $indo = [];
         $arab = [];
         $latin = [];
-        for($i = 0; $i < count($request->content_indo); $i++){
+        for($i = 0; $i < count($request->content_arab); $i++){
             $number = $i+1;
             $indo[] = $request->content_indo[$i];
             $arab[] = $request->content_arab[$i];
