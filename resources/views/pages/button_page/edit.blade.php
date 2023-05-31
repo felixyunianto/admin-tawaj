@@ -110,7 +110,7 @@
             <select name="link" class="form-control">
                 <option value="">Pilih link content</option>
                 @foreach ($contents as $content)
-                    <option value="{{ $content->id }}" @if ($content->id == $button_page->link && $button_page->link_type == 'content') selected @endif>{{ $content->title_arab }}</option>
+                    <option value="{{ $content->id }}" @if ($content->id == $button_page->link && $button_page->link_type == 'content') selected @endif>{{ $content->title_arab }} <span>({{$item->title_indo}})</span></option>
                 @endforeach
             </select>
             `

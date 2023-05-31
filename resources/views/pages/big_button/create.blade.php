@@ -115,7 +115,7 @@
             <select name="link" class="form-control">
                 <option value="">Pilih link content</option>
                 @foreach ($contents as $item)
-                    <option value="{{$item->id}}">{{$item->title_arab}}</option>
+                    <option value="{{$item->id}}">{{$item->title_arab($item->title_indo)}}</option>
                 @endforeach
             </select>
             `
