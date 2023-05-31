@@ -92,6 +92,11 @@ class ContentController extends Controller
         $indo = [];
         $arab = [];
         $latin = [];
+
+        if($request->content_arab === null){
+            return redirect()->route('content.create', ['category' => $request->category_id])->with('error', "Tambahkan ayat minimal 1");
+        }
+
         for($i = 0; $i < count($request->content_indo); $i++){
             $number = $i+1;
             $indo[] = $request->content_indo[$i];
@@ -101,7 +106,7 @@ class ContentController extends Controller
 
         $content->update([
             'title_indo' => $request->title_indo,
-            'title_arab' => $request->title_arab || null,
+            'title_arab' => $request->title_arab ? $request->title_arab : null,
             'content_indo' => json_encode($indo),
             'content_arab' => json_encode($arab, JSON_UNESCAPED_UNICODE),
             'content_latin' => json_encode($latin),
